@@ -64,7 +64,7 @@ public class OrderedArrayList {
     }
 
     // addBinary takes as input any comparable object
-    // inserts newVal at appropriate index using binsary search
+    // inserts newVal at appropriate index using binary search
     public void addBinary( Comparable newVal ) {
 	int min = 0;        // Lowest index.
 	int max = size(); // Highest index.
@@ -115,6 +115,7 @@ public class OrderedArrayList {
     
     // main method solely for testing purposes
     public static void main( String[] args ) {
+	/*
 	OrderedArrayList Franz = new OrderedArrayList();
 	for (int i = 0; i < 20; i++) {
 	    Franz.addBinary((int)(100*Math.random()));
@@ -128,6 +129,35 @@ public class OrderedArrayList {
 	    if (binPos != -1)
 		System.out.println("BinSearch: " + i + " at position " + binPos);
 	}
+	*/
+
+	// Heavy-Duty Testing for Time Complexity
+	OrderedArrayList Test = new OrderedArrayList();
+	for (int i = 0; i < 5000; i++) {
+	    Test.addBinary((int)(5000*Math.random())); // Autogen 5000 int array
+	}
+	System.out.println("Beginning of linSearch Testing: 100000 Iterations");
+	long linTime_s = System.currentTimeMillis();
+	for (int i = 0; i < 20; i++) {
+	    for (int j = 0; j < 5000; j++) {
+		Test.linSearch(j);
+	    }
+	}
+	long linTime_e = System.currentTimeMillis();
+	double linTotal = (linTime_e - linTime_s) / 1000.0;
+	System.out.println("Time Taken: " + linTotal + " seconds");
+	
+	System.out.println("Beginning of binSearch Testing: 100000 Iterations");
+	long binTime_s = System.currentTimeMillis();
+	for (int i = 0; i < 20; i++) {
+	    for (int j = 0; j < 5000; j++) {
+		Test.binSearch(j);
+	    }
+	}
+	long binTime_e = System.currentTimeMillis();
+	double binTotal = (binTime_e - binTime_s) / 1000.0;
+	System.out.println("Time Taken: " + binTotal + " seconds");
+	// END
     }
 
 }//end class OrderedArrayList
