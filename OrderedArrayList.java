@@ -79,40 +79,55 @@ public class OrderedArrayList {
 	}
 	_data.add(min, newVal);
     }
+
+    // linSearch takes comparable object, returns first index of occurrence
+    // else, if not in array, return -1
+    public int linSearch( Comparable val ) {
+	int size = size(); // Should be more efficient like this, I think.
+	for (int i = 0; i < size; i++) {
+	    if (_data.get(i).compareTo(val) == 0)
+		return i;
+	}
+	return -1;
+    }
+
+    // binSearch takes comparable object, returns first index of occurrence
+    // else, if not in array, return -1
+    public int binSearch( Comparable val ) {
+	int min = 0;
+	int max = size();
+	int smallestIndex = -1; // To track first occurrence
+	while (min != max) {
+	    int middle = (min + max)/2;
+	    int compare = val.compareTo(_data.get(middle));
+	    if (compare > 0) {
+		min = middle + 1;
+	    } else {
+		if (compare == 0)
+		    smallestIndex = middle;
+		max = middle;
+	    }
+	}
+	if (_data.get(min) == smallestIndex)
+	    smallestIndex = min;
+	return smallestIndex;
+    }
     
     // main method solely for testing purposes
     public static void main( String[] args ) {
-
-
 	OrderedArrayList Franz = new OrderedArrayList();
-
-	System.out.println("\nValues to add via addLinear() calls:");
-
-	// testing linear search
-	for( int i = 0; i < 15; i++ ) {
-	    int valToAdd = (int)( 50 * Math.random() );
-	    System.out.print( valToAdd );
-	    Franz.addLinear( valToAdd );
-	    System.out.println("\t"+Franz);
+	for (int i = 0; i < 20; i++) {
+	    Franz.addBinary((int)(100*Math.random()));
 	}
-	System.out.println("\nafter population via addLinear() calls:");
-	System.out.println( Franz );
-	System.out.println();
-	// ---------------------------------------------
-	System.out.println("\nValues to add via addBinary() calls:");
-	OrderedArrayList Oof = new OrderedArrayList();
-	// testing linear search
-	for( int i = 0; i < 15; i++ ) {
-	    int valToAdd = (int)( (25 * Math.random()) * (25 * Math.random()) );
-	    System.out.print( valToAdd );
-	    Oof.addBinary( valToAdd );
-	    System.out.println("\t"+Oof);
+	System.out.println("Test Array:\n" + Franz);
+	for (int i = 0; i < 100; i++) {
+	    int linPos = Franz.linSearch(i);
+	    int binPos = Franz.binSearch(i);
+	    if (linPos != -1)
+		System.out.println("LinSearch: " + i + " at position " + linPos);
+	    if (binPos != -1)
+		System.out.println("BinSearch: " + i + " at position " + binPos);
 	}
-	System.out.println("\nafter population via addBinary() calls:");
-	System.out.println( Oof );
-	System.out.println();
-	/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
     }
 
 }//end class OrderedArrayList
