@@ -108,8 +108,6 @@ public class OrderedArrayList {
 		max = middle;
 	    }
 	}
-	if (_data.get(min) == smallestIndex)
-	    smallestIndex = min;
 	return smallestIndex;
     }
     
@@ -157,7 +155,7 @@ public class OrderedArrayList {
 	long binTime_e = System.currentTimeMillis();
 	double binTotal = (binTime_e - binTime_s) / 1000.0;
 	System.out.println("Time Taken: " + binTotal + " seconds");
-	// END
+	// END */
     }
 
 }//end class OrderedArrayList
